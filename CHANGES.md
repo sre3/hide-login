@@ -1,4 +1,34 @@
 ## Changes
+1.5.2.1
+* Fix : Notice: Undefined index: query
+* Remove: 111KB of bullshit.
+
+1.5.2
+* Fix : Action URL wp_send_user_request()
+
+1.5.1
+* Fix : Action URL get_the_password_form()
+
+1.5
+* Enhancement: Add custom redirection URL
+
+1.4.5
+* Fix : function wp_login_url on page 404 now returns an empty link
+
+1.4.4
+* Fix : Too many redirects when a user clicks “Log in with WordPress.com”
+
+1.4.3
+* Fix : Fatal Error with multisite WP
+
+1.4.2
+* Fix : Error with library for compat WordPress and PHP
+
+1.4.1
+* Fix : Remove message review if PHP is too old
+
+1.4
+* Enhancement code with composer, namespace and autoload
 
 1.3.4.2
 * Fix : Remove message review if PHP is too old
