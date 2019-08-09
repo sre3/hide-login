@@ -17,13 +17,17 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 global $wpdb;
 
 if ( is_multisite() ) {
+
 	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
 	delete_site_option( 'whl_page' );
+	delete_site_option( 'whl_redirect_admin' );
 
 	if ( $blogs ) {
+
 		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
 			delete_option( 'whl_page' );
+			delete_option( 'whl_redirect_admin' );
 
 			//info: optimize table
 			$GLOBALS['wpdb']->query( "OPTIMIZE TABLE `" . $GLOBALS['wpdb']->prefix . "options`" );
@@ -33,6 +37,7 @@ if ( is_multisite() ) {
 
 } else {
 	delete_option( 'whl_page' );
+	delete_option( 'whl_redirect_admin' );
 
 	//info: optimize table
 	$GLOBALS['wpdb']->query( "OPTIMIZE TABLE `" . $GLOBALS['wpdb']->prefix . "options`" );

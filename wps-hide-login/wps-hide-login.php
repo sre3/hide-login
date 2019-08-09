@@ -1,16 +1,16 @@
 <?php
 /*
-Plugin Name: WPS Hide Login Lite
-Description: Protect your website by changing the login URL and preventing access to wp-login.php page and wp-admin directory while not logged-in. This lite version is based on WPS Hide Login 1.5.2.1, but with all bullshit removed.
-Author: NicolasKulka, tabrisrp, nrekow
-Author URI: https://rekow.ch
-Version: 1.5.2.1
-Requires at least: 4.1
-Tested up to: 5.1
-Requires PHP: 7.0
-License: GPLv3
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
-*/
+ Plugin Name: WPS Hide Login Lite
+ Description: Protect your website by changing the login URL and preventing access to wp-login.php page and wp-admin directory while not logged-in. This lite version is based on WPS Hide Login 1.5.2.1, but with all bullshit removed.
+ Author: NicolasKulka, tabrisrp, nrekow
+ Author URI: https://rekow.ch
+ Version: 1.5.3.1
+ Requires at least: 4.1
+ Tested up to: 5.2.2
+ Requires PHP: 7.0
+ License: GPLv3
+ License URI: http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
 // Don't load directly
 if (!defined('ABSPATH')) {
@@ -19,13 +19,12 @@ if (!defined('ABSPATH')) {
 
 
 // Plugin constants
-define('WPS_HIDE_LOGIN_VERSION', '1.5.2.1');
-define('WPS_HIDE_LOGIN_FOLDER', 'wps-hide-login');
+define( 'WPS_HIDE_LOGIN_VERSION', '1.5.2.2' );
+define( 'WPS_HIDE_LOGIN_FOLDER', 'wps-hide-login' );
 
-define('WPS_HIDE_LOGIN_URL', plugin_dir_url(__FILE__));
-define('WPS_HIDE_LOGIN_DIR', plugin_dir_path(__FILE__));
-define('WPS_HIDE_LOGIN_BASENAME', plugin_basename(__FILE__));
-
+define( 'WPS_HIDE_LOGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'WPS_HIDE_LOGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'WPS_HIDE_LOGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 // Function to easily include files.
 function wps_hide_login_load_files( $dir, $files, $prefix = '') {
