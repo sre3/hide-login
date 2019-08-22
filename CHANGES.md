@@ -1,4 +1,17 @@
 ## Changes
+1.5.4.1
+* Fix : home_url / site_url
+
+1.5.4
+* Fix : Compatibility with WPML (Thanks @susansiow)
+
+1.5.3
+* Fix : Security vulnerabilities (Thanks @juliobox)
+
+1.5.2.2
+* Tested up to 5.2
+* Fix : Domain language
+
 1.5.2.1
 * Fix : Notice: Undefined index: query
 * Remove: 111KB of bullshit.

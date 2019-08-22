@@ -5,7 +5,7 @@ Tags: rename, login, wp-login, wp-login.php, custom login url, jetpack, wpserveu
 Requires at least: 4.1
 Tested up to: 5.2.2
 Requires PHP: 7.0
-Stable tag: 1.5.3.1
+Stable tag: 1.5.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,7 +26,7 @@ It’s also compatible with any plugin that hooks in the login form, including:
 * BuddyPress,
 * bbPress,
 * Jetpack,
-* Limit Login Attempts,
+* WPS Limit Login,
 * and User Switching.
 
 Obviously it doesn’t work with plugins or themes that *hardcoded* wp-login.php.
@@ -45,6 +45,12 @@ For W3 Total Cache and WP Super Cache this plugin will give you a message with a
 4. Go to settings to change your login url.
 
 == Changelog ==
+
+= 1.5.4.1 =
+* Fix : home_url / site_url
+
+= 1.5.4 =
+* Fix : Compatibility with WPML (Thanks @susansiow)
 
 = 1.5.3 =
 * Fix : Security vulnerabilities (Thanks @juliobox)
