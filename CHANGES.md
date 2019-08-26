@@ -1,69 +1,72 @@
 ## Changes
+1.5.4.2
+* Fix: changed check of deprected function icl_object_id to wpml_object_id
+
 1.5.4.1
-* Fix : home_url / site_url
+* Fix: home_url / site_url
 
 1.5.4
-* Fix : Compatibility with WPML (Thanks @susansiow)
+* Fix: Compatibility with WPML (Thanks @susansiow)
 
 1.5.3
-* Fix : Security vulnerabilities (Thanks @juliobox)
+* Fix: Security vulnerabilities (Thanks @juliobox)
 
 1.5.2.2
 * Tested up to 5.2
-* Fix : Domain language
+* Fix: Domain language
 
 1.5.2.1
-* Fix : Notice: Undefined index: query
+* Fix: Notice: Undefined index: query
 * Remove: 111KB of bullshit.
 
 1.5.2
-* Fix : Action URL wp_send_user_request()
+* Fix: Action URL wp_send_user_request()
 
 1.5.1
-* Fix : Action URL get_the_password_form()
+* Fix: Action URL get_the_password_form()
 
 1.5
 * Enhancement: Add custom redirection URL
 
 1.4.5
-* Fix : function wp_login_url on page 404 now returns an empty link
+* Fix: function wp_login_url on page 404 now returns an empty link
 
 1.4.4
-* Fix : Too many redirects when a user clicks “Log in with WordPress.com”
+* Fix: Too many redirects when a user clicks “Log in with WordPress.com”
 
 1.4.3
-* Fix : Fatal Error with multisite WP
+* Fix: Fatal Error with multisite WP
 
 1.4.2
-* Fix : Error with library for compat WordPress and PHP
+* Fix: Error with library for compat WordPress and PHP
 
 1.4.1
-* Fix : Remove message review if PHP is too old
+* Fix: Remove message review if PHP is too old
 
 1.4
 * Enhancement code with composer, namespace and autoload
 
 1.3.4.2
-* Fix : Remove message review if PHP is too old
+* Fix: Remove message review if PHP is too old
 
 1.3.4.1
-* Fix : Deprecated method
+* Fix: Deprecated method
 
 1.3.4
-* Add : Review message
-* Fix : Redirect url wp-admin/options.php
+* Add: Review message
+* Fix: Redirect url wp-admin/options.php
 
 1.3.3
-* Add : Filter hook for enable wp-signup (@sumobi)
+* Add: Filter hook for enable wp-signup (@sumobi)
 
 1.3.2
-* Fix : Encoding of the login with a space in the emails
+* Fix: Encoding of the login with a space in the emails
 
 1.3.1
-* Fix : redirect change admin email
+* Fix: redirect change admin email
 
 1.3
-* Fix : redirect wp-register.php
+* Fix: redirect wp-register.php
 
 1.2.7
 * Enhancement for Woocommerce email notification
@@ -72,13 +75,13 @@
 * Revert redirect after login
 
 1.2.6
-* Fix : redirect after login
+* Fix: redirect after login
 
 1.2.5.1
-* Fix : add action in hook activate
+* Fix: add action in hook activate
 
 1.2.5
-* Remove : redirect activate
+* Remove: redirect activate
 
 1.2.4
 * Remove: Third party wpserveur
@@ -125,9 +128,9 @@
 * Check for Rename wp-login.php activation before activating WPS Hide Login Lite to prevent conflict
 
 1.1
-* Fix : CSRF security issue when saving option value in single site and multisite mode. Thanks to @Secupress
-* Improvement : changed option location from permalinks to general, because register_setting doesn't work on permalinks page.
-* Improvement : notice after saving is now dismissible (compatibility with WP 4.2)
+* Fix: CSRF security issue when saving option value in single site and multisite mode. Thanks to @Secupress
+* Improvement: changed option location from permalinks to general, because register_setting doesn't work on permalinks page.
+* Improvement: notice after saving is now dismissible (compatibility with WP 4.2)
 * Uninstall function is now in it's separate file uninstall.php
 * Some cleaning and reordering of code
 

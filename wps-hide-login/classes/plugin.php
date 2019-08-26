@@ -141,7 +141,7 @@ class Plugin {
 	public function new_login_url( $scheme = null ) {
 
 		$url = home_url( '/', $scheme );
-		if ( function_exists('icl_object_id') ) {
+		if ( function_exists('wpml_object_id') ) {
 			$url = site_url( '/', $scheme );
 		}
 
@@ -160,7 +160,7 @@ class Plugin {
 	public function new_redirect_url( $scheme = null ) {
 
 		$url = home_url( '/', $scheme );
-		if ( function_exists('icl_object_id') ) {
+		if ( function_exists('wpml_object_id') ) {
 			$url = site_url( '/', $scheme );
 		}
 
@@ -306,7 +306,7 @@ class Plugin {
 	public function whl_page_input() {
 
 		$url = home_url();
-		if ( function_exists('icl_object_id') ) {
+		if ( function_exists('wpml_object_id') ) {
 			$url = site_url();
 		}
 
@@ -327,7 +327,7 @@ class Plugin {
 	public function whl_redirect_admin_input() {
 
 		$url = home_url();
-		if ( function_exists('icl_object_id') ) {
+		if ( function_exists('wpml_object_id') ) {
 			$url = site_url();
 		}
 
