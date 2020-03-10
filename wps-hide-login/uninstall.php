@@ -22,13 +22,17 @@ if ( is_multisite() ) {
 	delete_site_option( 'whl_page' );
 	delete_site_option( 'whl_redirect_admin' );
 
+	flush_rewrite_rules();
+	
 	if ( $blogs ) {
 
 		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
 			delete_option( 'whl_page' );
 			delete_option( 'whl_redirect_admin' );
-
+			
+			flush_rewrite_rules();
+			
 			//info: optimize table
 			$GLOBALS['wpdb']->query( "OPTIMIZE TABLE `" . $GLOBALS['wpdb']->prefix . "options`" );
 			restore_current_blog();
@@ -39,6 +43,8 @@ if ( is_multisite() ) {
 	delete_option( 'whl_page' );
 	delete_option( 'whl_redirect_admin' );
 
+	flush_rewrite_rules();
+	
 	//info: optimize table
 	$GLOBALS['wpdb']->query( "OPTIMIZE TABLE `" . $GLOBALS['wpdb']->prefix . "options`" );
 }
