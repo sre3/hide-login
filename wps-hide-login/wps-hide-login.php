@@ -2,11 +2,11 @@
 /*
  Plugin Name: WPS Hide Login Lite
  Description: Protect your website by changing the login URL and preventing access to wp-login.php page and wp-admin directory while not logged-in. This lite version is based on the latest version of WPS Hide Login, but with all bullshit removed.
- Author: NicolasKulka, tabrisrp, nrekow
+ Author: NicolasKulka, wpformation, nrekow
  Author URI: https://rekow.ch
- Version: 1.5.6.1
+ Version: 1.8.3.1
  Requires at least: 4.1
- Tested up to: 5.4
+ Tested up to: 5.6
  Requires PHP: 7.0
  License: GPLv3
  License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 
 
 // Plugin constants
-define( 'WPS_HIDE_LOGIN_VERSION', '1.5.6.1' );
+define( 'WPS_HIDE_LOGIN_VERSION', '1.8.3.1' );
 define( 'WPS_HIDE_LOGIN_FOLDER', 'wps-hide-login' );
 
 define( 'WPS_HIDE_LOGIN_URL', plugin_dir_url( __FILE__ ) );

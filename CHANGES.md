@@ -1,4 +1,37 @@
 ## Changes
+= 1.8.3 =
+* Fix : remove WP_Review (that was never in my lite version, but hey, good to see, that you're learning)
+
+= 1.8.2 =
+* Fix notice "Notice: Trying to get property 'href' of non-object" (whereever that was ...)
+
+= 1.8.1 =
+* Fix fatal error with vendor wp-dismissible-notices-handler and wp-review-me (nope, not applicable for the lite version)
+
+= 1.8 =
+* Fix multisite subdomain for website menu (Thanks Eric Celeste)
+
+= 1.7 =
+* Fix vulnerability (Thanks Sebastian Schmitt) : Posting "post_password" with arbitrary content to /wp-login.php reveals the normal wordpress login page. (You "fixed" it by checking for an additonal GET parameter?)
+
+= 1.6.1 =
+* Fix : loopback request site-health
+
+= 1.6 =
+* Tested up to 5.6
+* Add compatibility with PHP8 (which I can't find anywhere in the actual code; maybe it's in the Composer stuiff, which I stripped, so useless).
+
+= 1.5.7 =
+* Fix: Text Domain Issue (which is totally useless, because the Lite version does not make use of translation, because the translation is fucked). 
+
+= 1.5.6 =
+* Fix: flush rewrite rules after install or update option
+* Tested up to 5.4
+
+= 1.5.5 =
+* Add filter to redirect in cases where the user is already logged in.
+* Fix: add rawurldecode for all $_SERVER['REQUEST_URI'] (Thanks @nintechnet)
+
 1.5.4.2
 * Fix: changed check of deprected function icl_object_id to wpml_object_id
 

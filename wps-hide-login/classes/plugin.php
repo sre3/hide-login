@@ -52,6 +52,10 @@ class Plugin {
 			) );
 		}
 
+		if ( is_multisite() ) {
+			add_action( 'wp_before_admin_bar_render', array( $this, 'modify_mysites_menu' ), 999 );
+		}
+		
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 9999 );
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
@@ -75,8 +79,15 @@ class Plugin {
 		add_filter( 'login_url', array( $this, 'login_url' ), 10, 3 );
 
 		add_filter( 'user_request_action_email_content', array( $this, 'user_request_action_email_content' ), 999, 2 );
+		
+		add_filter( 'site_status_tests', array( $this, 'site_status_tests' ) );
 	}
-
+	
+	public function site_status_tests( $tests ) {
+	    unset( $tests['async']['loopback_requests'] );
+	    
+	    return $tests;
+	}
 	
 	public function user_request_action_email_content( $email_text, $email_data ) {
 		return str_replace( '###CONFIRM_URL###', esc_url_raw( str_replace( $this->new_login_slug() . '/', 'wp-login.php', $email_data['confirm_url'] ) ), $email_text );
@@ -106,17 +117,45 @@ class Plugin {
 		die();
 	}
 
-	
-	private function new_login_slug() {
-		if ( $slug = get_option( 'whl_page' ) ) {
-			return $slug;
-		} else if ( ( is_multisite() && is_plugin_active_for_network( WPS_HIDE_LOGIN_BASENAME ) && ( $slug = get_site_option( 'whl_page', 'login' ) ) ) ) {
-			return $slug;
-		} else if ( $slug = 'login' ) {
-			return $slug;
+	public function modify_mysites_menu() {
+		global $wp_admin_bar;
+		
+		$all_toolbar_nodes = $wp_admin_bar->get_nodes();
+		
+		foreach ( $all_toolbar_nodes as $node ) {
+			if ( preg_match( '/^blog-(\d+)(.*)/', $node->id, $matches ) ) {
+				$blog_id = $matches[1];
+				if ( $login_slug = $this->new_login_slug( $blog_id ) ) {
+					if ( ! $matches[2] || '-d' === $matches[2] ) {
+						$args       = $node;
+						$old_href   = $args->href;
+						$args->href = preg_replace( '/wp-admin\/$/', "$login_slug/", $old_href );
+						if ( $old_href !== $args->href ) {
+							$wp_admin_bar->add_node( $args );
+						}
+					} elseif ( strpos( $node->href, '/wp-admin/' ) !== false ) {
+						$wp_admin_bar->remove_node( $node->id );
+					}
+				}
+			}
 		}
 	}
-
+	
+	private function new_login_slug( $blog_id = '' ) {
+		if ( $blog_id ) {
+			if ( $slug = get_blog_option( $blog_id, 'whl_page' ) ) {
+				return $slug;
+			}
+		} else {
+			if ( $slug = get_option( 'whl_page' ) ) {
+				return $slug;
+			} else if ( ( is_multisite() && is_plugin_active_for_network( WPS_HIDE_LOGIN_BASENAME ) && ( $slug = get_site_option( 'whl_page', 'login' ) ) ) ) {
+				return $slug;
+			} else if ( $slug = 'login' ) {
+				return $slug;
+			}
+		}
+	}
 	
 	private function new_redirect_slug() {
 		if ( $slug = get_option( 'whl_redirect_admin' ) ) {
@@ -160,12 +199,12 @@ class Plugin {
 
 	
 	public function admin_notices_incompatible() {
-		echo '<div class="error notice is-dismissible"><p>' . __( 'Please upgrade to the latest version of WordPress to activate', 'wpserveur-hide-login' ) . ' <strong>' . __( 'WPS Hide Login', 'wpserveur-hide-login' ) . '</strong>.</p></div>';
+		echo '<div class="error notice is-dismissible"><p>' . __( 'Please upgrade to the latest version of WordPress to activate', 'wps-hide-login' ) . ' <strong>' . __( 'WPS Hide Login', 'wps-hide-login' ) . '</strong>.</p></div>';
 	}
 
 	
 	public function admin_notices_plugin_conflict() {
-		echo '<div class="error notice is-dismissible"><p>' . __( 'WPS Hide Login could not be activated because you already have Rename wp-login.php active. Please uninstall rename wp-login.php to use WPS Hide Login', 'wpserveur-hide-login' ) . '</p></div>';
+		echo '<div class="error notice is-dismissible"><p>' . __( 'WPS Hide Login could not be activated because you already have Rename wp-login.php active. Please uninstall rename wp-login.php to use WPS Hide Login', 'wps-hide-login' ) . '</p></div>';
 	}
 
 	
@@ -180,13 +219,13 @@ class Plugin {
 	
 	public function wpmu_options() {
 		$out = '';
-		$out .= '<h3>' . __( 'WPS Hide Login', 'wpserveur-hide-login' ) . '</h3>';
-		$out .= '<p>' . __( 'This option allows you to set a networkwide default, which can be overridden by individual sites. Simply go to to the site’s permalink settings to change the url.', 'wpserveur-hide-login' ) . '</p>';
+		$out .= '<h3>' . __( 'WPS Hide Login', 'wps-hide-login' ) . '</h3>';
+		$out .= '<p>' . __( 'This option allows you to set a networkwide default, which can be overridden by individual sites. Simply go to to the site’s permalink settings to change the url.', 'wps-hide-login' ) . '</p>';
 		$out .= '<table class="form-table">';
 		$out .= '<tr valign="top">';
-		$out .= '<th scope="row"><label for="whl_page">' . __( 'Networkwide default', 'wpserveur-hide-login' ) . '</label></th>';
+		$out .= '<th scope="row"><label for="whl_page">' . __( 'Networkwide default', 'wps-hide-login' ) . '</label></th>';
 		$out .= '<td><input id="whl_page" type="text" name="whl_page" value="' . esc_attr( get_site_option( 'whl_page', 'login' ) ) . '"></td>';
-		$out .= '<th scope="row"><label for="whl_redirect_admin">' . __( 'Redirection url default', 'wpserveur-hide-login' ) . '</label></th>';
+		$out .= '<th scope="row"><label for="whl_redirect_admin">' . __( 'Redirection url default', 'wps-hide-login' ) . '</label></th>';
 		$out .= '<td><input id="whl_redirect_admin" type="text" name="whl_redirect_admin" value="' . esc_attr( get_site_option( 'whl_redirect_admin', '404' ) ) . '"></td>';
 		$out .= '</tr>';
 		$out .= '</table>';
@@ -226,7 +265,7 @@ class Plugin {
 
 		add_settings_field(
 			'whl_page',
-			'<label for="whl_page">' . __( 'Login url', 'wpserveur-hide-login' ) . '</label>',
+			'<label for="whl_page">' . __( 'Login url', 'wps-hide-login' ) . '</label>',
 			array( $this, 'whl_page_input' ),
 			'general',
 			'wps-hide-login-section'
@@ -234,7 +273,7 @@ class Plugin {
 
 		add_settings_field(
 			'whl_redirect_admin',
-			'<label for="whl_redirect_admin">' . __( 'Redirection url', 'wpserveur-hide-login' ) . '</label>',
+			'<label for="whl_redirect_admin">' . __( 'Redirection url', 'wps-hide-login' ) . '</label>',
 			array( $this, 'whl_redirect_admin_input' ),
 			'general',
 			'wps-hide-login-section'
@@ -267,14 +306,14 @@ class Plugin {
 	
 	public function whl_section_desc() {
 		if (!is_multisite()) {
-			echo '<p>' . __( 'This option allows you to set a custom login and redirection URL.', 'wpserveur-hide-login' ) . '</p>';
+			echo '<p>' . __( 'This option allows you to set a custom login and redirection URL.', 'wps-hide-login' ) . '</p>';
 		}
 		
 		if ( is_multisite()
 		     && is_super_admin()
 		     && is_plugin_active_for_network( WPS_HIDE_LOGIN_BASENAME ) ) {
 
-			echo '<p>' . sprintf( __( 'To set a networkwide default, go to <a href="%s">Network Settings</a>.', 'wpserveur-hide-login' ), network_admin_url( 'settings.php#whl_settings' ) ) . '</p>';
+			echo '<p>' . sprintf( __( 'To set a networkwide default, go to <a href="%s">Network Settings</a>.', 'wps-hide-login' ), network_admin_url( 'settings.php#whl_settings' ) ) . '</p>';
 		}
 	}
 
@@ -291,7 +330,7 @@ class Plugin {
 			echo '<code>' . trailingslashit( $url ) . '?</code> <input id="whl_page" type="text" name="whl_page" value="' . $this->new_login_slug() . '">';
 		}
 
-		echo '<p class="description">' . __( 'Protect your website by changing the login URL and preventing access to the wp-login.php page and the wp-admin directory to non-connected people.', 'wpserveur-hide-login' ) . '</p>';
+		echo '<p class="description">' . __( 'Protect your website by changing the login URL and preventing access to the wp-login.php page and the wp-admin directory to non-connected people.', 'wps-hide-login' ) . '</p>';
 	}
 
 	
@@ -307,7 +346,7 @@ class Plugin {
 			echo '<code>' . trailingslashit( $url ) . '?</code> <input id="whl_redirect_admin" type="text" name="whl_redirect_admin" value="' . $this->new_redirect_slug() . '">';
 		}
 
-		echo '<p class="description">' . __( 'Redirect URL when someone tries to access the wp-login.php page and the wp-admin directory while not logged in.', 'wpserveur-hide-login' ) . '</p>';
+		echo '<p class="description">' . __( 'Redirect URL when someone tries to access the wp-login.php page and the wp-admin directory while not logged in.', 'wps-hide-login' ) . '</p>';
 	}
 
 	
@@ -319,7 +358,7 @@ class Plugin {
 		     && isset( $_GET['settings-updated'] )
 		     && ! isset( $_GET['page'] ) ) {
 
-			echo '<div class="updated notice is-dismissible"><p>' . sprintf( __( 'Your login page is now here: <strong><a href="%1$s">%2$s</a></strong>. Bookmark this page!', 'wpserveur-hide-login' ), $this->new_login_url(), $this->new_login_url() ) . '</p></div>';
+			echo '<div class="updated notice is-dismissible"><p>' . sprintf( __( 'Your login page is now here: <strong><a href="%1$s">%2$s</a></strong>. Bookmark this page!', 'wps-hide-login' ), $this->new_login_url(), $this->new_login_url() ) . '</p></div>';
 		}
 	}
 
@@ -327,9 +366,9 @@ class Plugin {
 	public function plugin_action_links( $links ) {
 		if ( is_network_admin()
 		     && is_plugin_active_for_network( WPS_HIDE_LOGIN_BASENAME ) ) {
-			array_unshift( $links, '<a href="' . network_admin_url( 'settings.php#whl_settings' ) . '">' . __( 'Settings', 'wpserveur-hide-login' ) . '</a>' );
+			array_unshift( $links, '<a href="' . network_admin_url( 'settings.php#whl_settings' ) . '">' . __( 'Settings', 'wps-hide-login' ) . '</a>' );
 		} elseif ( ! is_network_admin() ) {
-			array_unshift( $links, '<a href="' . admin_url( 'options-general.php#whl_settings' ) . '">' . __( 'Settings', 'wpserveur-hide-login' ) . '</a>' );
+			array_unshift( $links, '<a href="' . admin_url( 'options-general.php#whl_settings' ) . '">' . __( 'Settings', 'wps-hide-login' ) . '</a>' );
 		}
 
 		return $links;
@@ -363,7 +402,7 @@ class Plugin {
 
 		if ( ! is_multisite()
 		&& ( strpos( rawurldecode( $_SERVER['REQUEST_URI'] ) , 'wp-signup' ) !== false || strpos( rawurldecode( $_SERVER['REQUEST_URI'] ), 'wp-activate' ) !== false ) && apply_filters( 'wps_hide_login_signup_enable', false ) === false ) {
-			wp_die( __( 'This feature is not enabled.', 'wpserveur-hide-login' ) );
+			wp_die( __( 'This feature is not enabled.', 'wps-hide-login' ) );
 		}
 						
 		$request = parse_url( rawurldecode( $_SERVER['REQUEST_URI'] ) );
@@ -393,7 +432,7 @@ class Plugin {
 		global $pagenow;
 
 		if ( ! is_user_logged_in() && 'customize.php' === $pagenow ) {
-			wp_die( __( 'This has been disabled', 'wpserveur-hide-login' ), 403 );
+			wp_die( __( 'This has been disabled', 'wps-hide-login' ), 403 );
 		}
 	}
 
@@ -403,7 +442,7 @@ class Plugin {
 
 		$request = parse_url( rawurldecode( $_SERVER['REQUEST_URI'] ) );
 
-		if ( ! isset( $_POST['post_password'] ) ) {
+		if ( ! ( isset( $_GET['action'] ) && $_GET['action'] === 'postpass' && isset( $_POST['post_password'] ) ) ) {
 			if ( is_admin() && ! is_user_logged_in() && ! defined( 'DOING_AJAX' ) && $pagenow !== 'admin-post.php' && $request['path'] !== '/wp-admin/options.php' ) {
 				wp_safe_redirect( $this->new_redirect_url() );
 				die();

@@ -1,11 +1,11 @@
 === WPS Hide Login ===
 
-Contributors: tabrisrp, WPServeur, nicolaskulka, nrekow
+Contributors: WPServeur, nicolaskulka, wpformation, nrekow
 Tags: rename, login, wp-login, wp-login.php, custom login url, jetpack, wpserveur
 Requires at least: 4.1
-Tested up to: 5.4
+Tested up to: 5.6
 Requires PHP: 7.0
-Stable tag: 1.5.6.1
+Stable tag: 1.8.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ Change wp-login.php to anything you want.
 
 == Description ==
 
-This lite version is based on WPS Hide Login 1.5.2.1, but with all bullshit removed.
+This lite version is based on WPS Hide Login 1.5.7, but with all bullshit removed.
 
 The plugin lets you easily and safely change the url of the login form page to anything you want. It doesn’t literally rename or change files in core, nor does it add rewrite rules. It simply intercepts page requests and works on any WordPress website. The wp-admin directory and wp-login.php page become inaccessible, so you should bookmark or remember the url. Deactivating this plugin brings your site back exactly to the state it was before.
 
@@ -45,6 +45,31 @@ For W3 Total Cache and WP Super Cache this plugin will give you a message with a
 4. Go to settings to change your login url.
 
 == Changelog ==
+
+= 1.8.3 =
+* Fix : remove WP_Review (that was never in my lite version, but hey, good to see, that you learn.)
+
+= 1.8.2 =
+* Fix notice "Notice: Trying to get property 'href' of non-object"
+
+= 1.8.1 =
+* Fix fatal error with vendor wp-dismissible-notices-handler and wp-review-me
+
+= 1.8 =
+* Fix multisite subdomain for website menu (Thanks Eric Celeste)
+
+= 1.7 =
+* Fix vulnerability (Thanks Sebastian Schmitt) : Posting "post_password" with arbitrary content to /wp-login.php reveals the normal wordpress login page.
+
+= 1.6.1 =
+* Fix : loopback request site-health
+
+= 1.6 =
+* Tested up to 5.6
+* Add compatibility with PHP8
+
+= 1.5.7 =
+* Fix : Text Domain Issue (which is totally useless, because the Lite version does not make use of translation, because the translation is fucked). 
 
 = 1.5.6 =
 * Fix : flush rewrite rules after install or update option
