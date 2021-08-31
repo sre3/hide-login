@@ -3,9 +3,9 @@
 Contributors: WPServeur, nicolaskulka, wpformation, nrekow
 Tags: rename, login, wp-login, wp-login.php, custom login url, jetpack, wpserveur
 Requires at least: 4.1
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 7.0
-Stable tag: 1.8.3.1
+Stable tag: 1.8.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,15 @@ For W3 Total Cache and WP Super Cache this plugin will give you a message with a
 4. Go to settings to change your login url.
 
 == Changelog ==
+
+= 1.8.6 =
+* Tested up to 5.8
+
+= 1.8.5 =
+* Fix : Force refresh permalinks update option 'whl_page'
+
+= 1.8.4 =
+* Tested up to 5.7 (what a brilliant achievement. you created a new version just because you tested a piece of software? who taught you about release management and coding?)
 
 = 1.8.3 =
 * Fix : remove WP_Review (that was never in my lite version, but hey, good to see, that you learn.)

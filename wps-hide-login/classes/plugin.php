@@ -236,18 +236,18 @@ class Plugin {
 	public function update_wpmu_options() {
 		if ( ! empty( $_POST ) && check_admin_referer( 'siteoptions' ) ) {
 			if ( ( $whl_page = sanitize_title_with_dashes( $_POST['whl_page'] ) )
-			     && strpos( $whl_page, 'wp-login' ) === false
-			     && ! in_array( $whl_page, $this->forbidden_slugs() ) ) {
+				&& strpos( $whl_page, 'wp-login' ) === false
+				&& ! in_array( $whl_page, $this->forbidden_slugs() ) ) {
 
+				flush_rewrite_rules(true);
 				update_site_option( 'whl_page', $whl_page );
-				flush_rewrite_rules();
 			}
 			
 			if ( ( $whl_redirect_admin = sanitize_title_with_dashes( $_POST['whl_redirect_admin'] ) )
-			     && strpos( $whl_redirect_admin, '404' ) === false ) {
+				&& strpos( $whl_redirect_admin, '404' ) === false ) {
 
+				flush_rewrite_rules(true);
 				update_site_option( 'whl_redirect_admin', $whl_redirect_admin );
-				flush_rewrite_rules();
 			}
 		}
 	}
