@@ -5,7 +5,7 @@ Tags: rename, login, wp-login, wp-login.php, custom login url, jetpack, wpserveu
 Requires at least: 4.1
 Tested up to: 5.7
 Requires PHP: 7.0
-Stable tag: 1.8.4.1
+Stable tag: 1.8.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,9 @@ For W3 Total Cache and WP Super Cache this plugin will give you a message with a
 4. Go to settings to change your login url.
 
 == Changelog ==
+
+= 1.8.7 =
+* Fix : remove redirect in doing cron
 
 = 1.8.6 =
 * Tested up to 5.8

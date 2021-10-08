@@ -1,4 +1,16 @@
 ## Changes
+= 1.8.7 =
+* Fix : remove redirect in doing cron
+
+= 1.8.6 =
+* Tested up to 5.8 (please see entry v1.8.4 for rants)
+
+= 1.8.5 =
+* Fix : Force refresh permalinks update option 'whl_page'
+
+= 1.8.4 =
+* Tested up to 5.7 (what a brilliant achievement. you created a new version just because you tested a piece of software? who taught you about release management and coding?)
+
 = 1.8.3 =
 * Fix : remove WP_Review (that was never in my lite version, but hey, good to see, that you're learning)
 
