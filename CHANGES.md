@@ -1,4 +1,10 @@
 ## Changes
+= 1.9 =
+* Fix : redirect ajax add_to_cart
+
+= 1.8.8 =
+* Fix : redirect_url (Thanks Don)
+
 = 1.8.7 =
 * Fix : remove redirect in doing cron
 

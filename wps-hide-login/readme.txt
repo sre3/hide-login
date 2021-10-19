@@ -1,11 +1,11 @@
-=== WPS Hide Login ===
+=== WPS Hide Login Lite ===
 
 Contributors: WPServeur, nicolaskulka, wpformation, nrekow
 Tags: rename, login, wp-login, wp-login.php, custom login url, jetpack, wpserveur
 Requires at least: 4.1
 Tested up to: 5.7
 Requires PHP: 7.0
-Stable tag: 1.8.7.1
+Stable tag: 1.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,12 @@ For W3 Total Cache and WP Super Cache this plugin will give you a message with a
 4. Go to settings to change your login url.
 
 == Changelog ==
+
+= 1.9 =
+* Fix : redirect ajax add_to_cart
+
+= 1.8.8 =
+* Fix : redirect_url (Thanks Don)
 
 = 1.8.7 =
 * Fix : remove redirect in doing cron
