@@ -1,4 +1,11 @@
 ## Changes
+= 1.9.2 =
+* Add action before redirect
+* Fix redirect with wp-cli (Thanks @netson)
+
+= 1.9.1 =
+* Fix : by-pass security issue allowing an unauthenticated user to get login page by setting a random referer string via curl request.
+
 = 1.9 =
 * Fix : redirect ajax add_to_cart
 
