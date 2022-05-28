@@ -437,24 +437,25 @@ class Plugin {
 				die();
 			}
 			
-			if ( ! is_user_logged_in() && $request['path'] === '/wp-admin/options.php' ) {
+			if ( ! is_user_logged_in() && isset($request['path']) &&  $request['path'] === '/wp-admin/options.php' ) {
 				header('Location: ' . $this->new_redirect_url() );
-				die;
+				die();
 			}
 			
 			if ( $pagenow === 'wp-login.php'
-			     && $request['path'] !== $this->user_trailingslashit( $request['path'] )
-			     && get_option( 'permalink_structure' ) ) {
-				wp_safe_redirect( $this->user_trailingslashit( $this->new_login_url() )
-				                  . ( ! empty( $_SERVER['QUERY_STRING'] ) ? '?' . $_SERVER['QUERY_STRING'] : '' ) );
+				&& isset($request['path']) 
+				&& $request['path'] !== $this->user_trailingslashit( $request['path'] )
+				&& get_option( 'permalink_structure' )
+			) {
+				wp_safe_redirect( $this->user_trailingslashit( $this->new_login_url() ) . ( ! empty( $_SERVER['QUERY_STRING'] ) ? '?' . $_SERVER['QUERY_STRING'] : '' ) );
 				die();
 			} elseif ( $this->wp_login_php ) {
 
 				if ( ( $referer = wp_get_referer() )
 				     && strpos( $referer, 'wp-activate.php' ) !== false
 				     && ( $referer = parse_url( $referer ) )
-				     && ! empty( $referer['query'] ) ) {
-
+				     && ! empty( $referer['query'] )
+				) {
 					parse_str( $referer['query'], $referer );
 
 					@require_once WPINC . '/ms-functions.php';
@@ -463,10 +464,9 @@ class Plugin {
 					     && ( $result = wpmu_activate_signup( $referer['key'] ) )
 					     && is_wp_error( $result )
 					     && ( $result->get_error_code() === 'already_active'
-					          || $result->get_error_code() === 'blog_taken' ) ) {
-
-						wp_safe_redirect( $this->new_login_url()
-						                  . ( ! empty( $_SERVER['QUERY_STRING'] ) ? '?' . $_SERVER['QUERY_STRING'] : '' ) );
+					          || $result->get_error_code() === 'blog_taken' )
+					) {
+						wp_safe_redirect( $this->new_login_url() . ( ! empty( $_SERVER['QUERY_STRING'] ) ? '?' . $_SERVER['QUERY_STRING'] : '' ) );
 						die();
 					}
 				}
