@@ -1,6 +1,6 @@
 <?php
 
-namespace WPS\WPS_Hide_Login;
+namespace sre3\Hide_Login;
 
 /**
  * Singleton base class for having singleton implementation
@@ -11,7 +11,7 @@ namespace WPS\WPS_Hide_Login;
  * /!\ The get_instance method have to be implemented !
  *
  * Class Singleton
- * @package WPS\WPS_Hide_Login
+ * @package sre3\Hide_Login
  */
 trait Singleton {
 
