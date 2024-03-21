@@ -1,4 +1,4 @@
-# WPS Hide Login Lite
+# Hide Login
 
 Contributors: sre3, WPServeur, nicolaskulka, wpformation, nrekow  
 Requires at least: 4.1  
